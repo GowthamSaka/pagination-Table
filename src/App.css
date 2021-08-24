@@ -1,0 +1,86 @@
+.app-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.heading {
+  color: #1e293b;
+  font-family: 'Roboto';
+  text-align: center;
+  font-size: 32px;
+  font-weight: 500;
+  margin-top: 96px;
+  margin-bottom: 32px;
+}
+
+.search-input {
+  margin-bottom: 20px;
+}
+
+.table-container {
+  border: 1px solid #000;
+  height: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: flex-start;
+  padding: 5px;
+  background-color: #cfc7c6;
+}
+
+.caption-names {
+  color: #323f4b;
+  font-family: 'Roboto';
+  font-weight: bold;
+  font-size: 20px;
+  align-self: center;
+}
+
+.users-list-container {
+  padding: 0;
+  padding-left: 0;
+  margin: 0;
+}
+
+.pagination-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.button {
+  color: #fff;
+  background-color: #34c9eb;
+  border: none;
+  padding: 5px;
+  font-size: 14px;
+  font-family: 'Roboto';
+  border-radius: 14px;
+  height: 40px;
+  width: 120px;
+}
+
+.paginationBttns {
+  width: 30%;
+  height: 40px;
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+}
+
+.paginationBttns a {
+  padding: 10px;
+  margin: 8px;
+  border-radius: 5px;
+  border: 1px solid #2b2eff;
+  color: #000;
+  cursor: pointer;
+}
+
+.paginationActive a {
+  color: #fff;
+  background-color: #2b2eff;
+}
