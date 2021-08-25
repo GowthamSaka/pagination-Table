@@ -10,8 +10,9 @@ class App extends Component {
   state = {
     blogsData: [],
     searchInput: '',
-    setPageNumber: 0,
     usersPerPage: 10,
+    arrayId: [],
+    paginatedData: [],
   }
 
   componentDidMount() {
@@ -29,8 +30,10 @@ class App extends Component {
       email: eachData.email,
       role: eachData.role,
     }))
+    console.log(updatedData)
     this.setState({
       blogsData: updatedData,
+      paginatedData: updatedData.slice(0, 10),
     })
   }
 
@@ -41,22 +44,38 @@ class App extends Component {
   }
 
   deleteUser = id => {
-    const {blogsData} = this.state
-    const filteredUserData = blogsData.filter(each => each.id !== id)
+    const {paginatedData} = this.state
+    const filteredUserData = paginatedData.filter(each => each.id !== id)
     this.setState({
-      blogsData: filteredUserData,
+      paginatedData: filteredUserData,
     })
   }
 
-  changePage = ({selected}) => {
-    const {setPageNumber} = this.state
-    return setPageNumber(selected)
+  changePage = selectedPage => {
+    const {blogsData} = this.state
+    const {selected} = selectedPage
+    const filteredData = blogsData.slice(selected * 10, selected * 10 + 10)
+    this.setState({paginatedData: filteredData})
+  }
+
+  deleteMultipleUsers = id => {
+    const {paginatedData, arrayId} = this.state
+    return paginatedData.forEach(data => {
+      if (data.selected) {
+        arrayId.push(data.id)
+        const filteredDataList = paginatedData.filter(each => each.id !== id)
+        this.setState({arrayId: filteredDataList})
+      }
+    })
   }
 
   render() {
-    const {searchInput, blogsData, usersPerPage} = this.state
-    const searchResults = blogsData.filter(eachUser =>
-      eachUser.name.toLowerCase().includes(searchInput.toLowerCase()),
+    const {searchInput, paginatedData, blogsData, usersPerPage} = this.state
+    const searchResults = paginatedData.filter(
+      eachUser =>
+        eachUser.name.toLowerCase().includes(searchInput.toLowerCase()) ||
+        eachUser.email.toLowerCase().includes(searchInput.toLowerCase()) ||
+        eachUser.role.toLowerCase().includes(searchInput.toLowerCase()),
     )
 
     const pageCount = Math.ceil(blogsData.length / usersPerPage)
@@ -69,7 +88,7 @@ class App extends Component {
           className="search-input"
           value={searchInput}
           onChange={this.onChangeSearchInput}
-          placeholder="search by name"
+          placeholder="search by name or email or role"
         />
         <div className="table-container">
           <p className="caption-names">Check Box</p>
@@ -88,8 +107,12 @@ class App extends Component {
           ))}
         </ul>
         <div className="pagination-container">
-          <button className="button" type="button">
-            Delete Multiple
+          <button
+            className="button"
+            type="button"
+            onClick={this.deleteMultipleUsers()}
+          >
+            Delete Selected
           </button>
           <ReactPaginate
             previousLabel="Previous"

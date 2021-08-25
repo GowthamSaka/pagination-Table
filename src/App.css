@@ -1,7 +1,6 @@
 .app-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   min-height: 100vh;
 }
 
@@ -61,6 +60,7 @@
   border-radius: 14px;
   height: 40px;
   width: 120px;
+  cursor: pointer;
 }
 
 .paginationBttns {

@@ -1,17 +1,21 @@
 import './index.css'
 
 const ContactItem = props => {
-  const {userDetails, deleteUser} = props
+  const {userDetails, deleteUser, deleteMultipleUsers} = props
   const {name, email, role, id} = userDetails
 
   const onDelete = () => {
     deleteUser(id)
   }
 
+  const onDeleteMultiple = () => {
+    deleteMultipleUsers(id)
+  }
+
   return (
     <li className="table-cell">
       <div className="box">
-        <input type="checkbox" />
+        <input type="checkbox" onClick={onDeleteMultiple} />
       </div>
       <div className="box">
         <p className="captions">{name}</p>
